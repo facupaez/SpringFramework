@@ -1,4 +1,4 @@
-package com.example;
+package com.example.manual;
 
 public class CalculatorService {
 

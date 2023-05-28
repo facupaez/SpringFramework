@@ -1,7 +1,5 @@
-package com.example.beansHandling;
+package com.example.manual;
 
-import com.example.BillManager;
-import com.example.CalculatorService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
