@@ -8,10 +8,10 @@
     Un bean es un objeto Java el cual pasa a ser gestionado por Spring pudiendo inyectarlo donde fuese necesario.
     -->
 
-    <bean id="calculatorService" class="com.example.CalculatorService">
+    <bean id="calculatorService" class="com.example.manual.CalculatorService">
     </bean>
 
-    <bean id="billManager" class="com.example.BillManager">
+    <bean id="billManager" class="com.example.manual.BillManager">
         <!--
         Cuando nuestro objeto contiene un constructor que recibe un parámetro debemos agregarlo en el bean.
         -->
