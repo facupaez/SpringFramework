@@ -13,3 +13,8 @@ El acceso puede ser desde Postman o desde Navegador web.
 Entidad Book
 1. Book entity
 2. Book Repository
+    1. Buscar todos los libros
+    2. Buscar un libro
+    3. Crear un nuevo libro
+    4. Modificar un libro
+    5. Borrar un libro
