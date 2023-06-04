@@ -82,4 +82,16 @@ public class BookController {
     }
 
     // eliminar un libro
+    @DeleteMapping("/books/{id}")
+    public ResponseEntity<BookEntity> delete(@PathVariable Long id){
+        if (!bookRepository.existsById(id)){
+            System.out.println("Trying to delete a non existent book");
+            return ResponseEntity.notFound().build();
+        }
+
+        bookRepository.deleteById(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
