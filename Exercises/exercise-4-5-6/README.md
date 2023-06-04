@@ -22,3 +22,9 @@ Desde LaptopController crear un método que devuelva una lista de objetos Laptop
 Probar que funciona desde Postman.
 
 Los objetos Laptop se pueden insertar desde el método main de la clase principal.
+
+Ejercicio 3
+
+Crear un método en LaptopController que reciba un objeto Laptop enviado en formato JSON desde Postman y persistirlo en la base de datos.
+
+Comprobar que al obtener de nuevo los laptops aparece el nuevo ordenador creado.
