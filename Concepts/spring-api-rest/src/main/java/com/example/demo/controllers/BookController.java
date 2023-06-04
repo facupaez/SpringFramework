@@ -2,10 +2,9 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.BookEntity;
 import com.example.demo.repositories.BookRepository;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +36,12 @@ public class BookController {
     }
 
     // crear un nuevo libro
+    @PostMapping("/books")
+    // utilizamos @RequestHeader HttpHeaders para extraer cabeceras
+    public BookEntity create(@RequestBody BookEntity book, @RequestHeader HttpHeaders headers){
+        System.out.println(headers.get("User-Agent"));
+        return bookRepository.save(book);
+    }
 
     // modificar un libro
 
