@@ -2,6 +2,8 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.BookEntity;
 import com.example.demo.repositories.BookRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.Optional;
 public class BookController {
     // atributos
     BookRepository bookRepository;
+    private final Logger log = LoggerFactory.getLogger(BookController.class);
 
     // constructores
     public BookController(BookRepository bookRepository) {
@@ -53,9 +56,14 @@ public class BookController {
      * @return
      */
     @PostMapping("/books")
-    public BookEntity create(@RequestBody BookEntity book, @RequestHeader HttpHeaders headers){
+    public ResponseEntity<BookEntity> create(@RequestBody BookEntity book, @RequestHeader HttpHeaders headers){
         System.out.println(headers.get("User-Agent"));
-        return bookRepository.save(book);
+        if(book.getId() != null){
+            log.warn("Trying to create a book with an existent id");
+            return ResponseEntity.badRequest().build();
+        }
+        BookEntity result = bookRepository.save(book);
+        return ResponseEntity.ok(result);
     }
 
     /**
@@ -68,11 +76,11 @@ public class BookController {
     @PutMapping("/books")
     public ResponseEntity<BookEntity> update(@RequestBody BookEntity book){
         if (book.getId() == null){
-            System.out.println("Trying to update a non existent book");
+            log.warn("Trying to update a non existent book");
             return ResponseEntity.badRequest().build();
         }
         if (!bookRepository.existsById(book.getId())){
-            System.out.println("Trying to update a non existent book");
+            log.warn("Trying to update a non existent book");
             return ResponseEntity.notFound().build();
         }
 
@@ -81,16 +89,21 @@ public class BookController {
 
     }
 
-    // eliminar un libro
+    /**
+     * Eliminar un libro por id de la base de datos
+     * http://localhost:8080/books
+     * @param id
+     * @return
+     */
+    //
     @DeleteMapping("/books/{id}")
     public ResponseEntity<BookEntity> delete(@PathVariable Long id){
         if (!bookRepository.existsById(id)){
-            System.out.println("Trying to delete a non existent book");
+            log.warn("Trying to delete a non existent book");
             return ResponseEntity.notFound().build();
         }
 
         bookRepository.deleteById(id);
-
         return ResponseEntity.noContent().build();
     }
 
