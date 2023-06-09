@@ -19,12 +19,13 @@ public class BookEntity {
     private Double price;
     private LocalDate releaseDate;
     private boolean online;
+    private boolean shipping;
 
     // constructores
     public BookEntity() {
     }
 
-    public BookEntity(Long id, String title, String author, Integer pages, Double price, LocalDate releaseDate, boolean online) {
+    public BookEntity(Long id, String title, String author, Integer pages, Double price, LocalDate releaseDate, boolean online, boolean shipping) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -32,6 +33,7 @@ public class BookEntity {
         this.price = price;
         this.releaseDate = releaseDate;
         this.online = online;
+        this.shipping = shipping;
     }
 
     // getters/setters
@@ -91,6 +93,14 @@ public class BookEntity {
         this.online = online;
     }
 
+    public boolean isShipping() {
+        return shipping;
+    }
+
+    public void setShipping(boolean shipping) {
+        this.shipping = shipping;
+    }
+
     // toString
     @Override
     public String toString() {
@@ -102,6 +112,7 @@ public class BookEntity {
                 ", price=" + price +
                 ", releaseDate=" + releaseDate +
                 ", online=" + online +
+                ", shipping=" + shipping +
                 '}';
     }
 }
