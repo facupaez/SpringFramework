@@ -15,20 +15,19 @@ public class Laptop {
     private Double inches;
     private Integer ROM;
     private Integer RAM;
-    private String proccesor;
+    private String processor;
     private boolean touchScreen;
 
     public Laptop() {
     }
 
-    public Laptop(Long id, String operativeSystem, String color, Double inches, Integer ROM, Integer RAM, String proccesor, boolean touchScreen) {
-        this.id = id;
+    public Laptop(String operativeSystem, String color, Double inches, Integer ROM, Integer RAM, String proccesor, boolean touchScreen) {
         this.operativeSystem = operativeSystem;
         this.color = color;
         this.inches = inches;
         this.ROM = ROM;
         this.RAM = RAM;
-        this.proccesor = proccesor;
+        this.processor = proccesor;
         this.touchScreen = touchScreen;
     }
 
@@ -80,12 +79,12 @@ public class Laptop {
         this.RAM = RAM;
     }
 
-    public String getProccesor() {
-        return proccesor;
+    public String getProcessor() {
+        return processor;
     }
 
-    public void setProccesor(String proccesor) {
-        this.proccesor = proccesor;
+    public void setProcessor(String processor) {
+        this.processor = processor;
     }
 
     public boolean isTouchScreen() {
@@ -105,7 +104,7 @@ public class Laptop {
                 ", inches=" + inches +
                 ", ROM=" + ROM +
                 ", RAM=" + RAM +
-                ", proccesor='" + proccesor + '\'' +
+                ", proccesor='" + processor + '\'' +
                 ", touchScreen=" + touchScreen +
                 '}';
     }

@@ -1,9 +1,12 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Laptop;
+import com.example.demo.exception.LaptopNotFoundException;
 import com.example.demo.repositories.LaptopRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +16,9 @@ import java.util.Optional;
 @RestController
 public class LaptopController {
 
+    @Autowired
     LaptopRepository laptopRepository;
     private final Logger log = LoggerFactory.getLogger(LaptopController.class);
-
-    public LaptopController(LaptopRepository laptopRepository){
-        this.laptopRepository = laptopRepository;
-    }
 
     /**
      * Buscar todos los objetos existentes de laptops en base de datos
@@ -26,8 +26,9 @@ public class LaptopController {
      * @return
      */
     @GetMapping("/laptops")
-    public List<Laptop> findAll(){
-        return laptopRepository.findAll();
+    public ResponseEntity<Object> findAll(){
+        List<Laptop> laptopList = laptopRepository.findAll();
+        return new ResponseEntity<>(laptopList, HttpStatus.OK);
     }
 
     /**
@@ -37,13 +38,16 @@ public class LaptopController {
      * @return
      */
     @GetMapping("/laptops/{id}")
-    public ResponseEntity<Laptop> findById(@PathVariable Long id){
-        Optional<Laptop> laptopOpt = laptopRepository.findById(id);
-        if (!laptopOpt.isPresent()){
-            log.warn("Sorry, this id doesn't exist");
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Object> findById(@PathVariable Long id){
+        Optional<Laptop> optional = laptopRepository.findById(id);
+        Laptop laptopOpt = optional.get();
+
+        boolean isLaptopExists = laptopRepository.existsById(id);
+        if (isLaptopExists){
+            return new ResponseEntity<>(laptopOpt, HttpStatus.OK);
         }
-        return ResponseEntity.ok(laptopOpt.get());
+
+        throw new LaptopNotFoundException();
     }
 
     /**
@@ -59,6 +63,7 @@ public class LaptopController {
             return ResponseEntity.badRequest().build();
         }
         Laptop result = laptopRepository.save(laptop);
+        System.out.println("Laptop created successfully!");
         return ResponseEntity.ok(result);
     }
 
@@ -69,19 +74,17 @@ public class LaptopController {
      * @param laptop
      * @return
      */
-    @PutMapping("/laptops")
-    public ResponseEntity<Laptop> update(@RequestBody Laptop laptop){
-        if(laptop.getId() == null){
-            log.warn("Trying to update a non existent laptop");
-            return ResponseEntity.badRequest().build();
-        }
-        if (!laptopRepository.existsById(laptop.getId())){
-            log.warn("Trying to update a non existent laptop");
-            return ResponseEntity.notFound().build();
+    @PutMapping("/laptops/{id}")
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody Laptop laptop){
+        boolean isLaptopExists = laptopRepository.existsById(id);
+
+        if (isLaptopExists){
+            laptop.setId(id);
+            Laptop result = laptopRepository.save(laptop);
+            return ResponseEntity.ok(result);
         }
 
-        Laptop result = laptopRepository.save(laptop);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.badRequest().build();
     }
 
     /**
