@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class SpringSecurityCifradoApplication {
+public class SpringSecurityEncryptionApplication {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -19,7 +19,7 @@ public class SpringSecurityCifradoApplication {
 
     public static void main(String[] args) {
 
-        ApplicationContext context = SpringApplication.run(SpringSecurityCifradoApplication.class, args);
+        ApplicationContext context = SpringApplication.run(SpringSecurityEncryptionApplication.class, args);
         UserRepository repository = context.getBean(UserRepository.class);
         PasswordEncoder passwordEncoder = context.getBean(PasswordEncoder.class);
 
