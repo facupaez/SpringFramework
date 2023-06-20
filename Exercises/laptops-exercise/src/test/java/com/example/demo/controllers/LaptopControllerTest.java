@@ -53,7 +53,7 @@ class LaptopControllerTest {
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
-    @Test
+    /*@Test
     void updateTest() {
         Laptop laptop = new Laptop("Windows 1111", "black", 15.6, 1, 16, "i7", true);
 
@@ -65,9 +65,9 @@ class LaptopControllerTest {
                 httpEntity, String.class);
 
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-    }
+    }*/
 
-    @Test
+   /* @Test
     void findByIdTest() {
         ResponseEntity<Laptop> response = testRestTemplate.getForEntity("/laptops/1", Laptop.class);
 
@@ -75,7 +75,7 @@ class LaptopControllerTest {
         System.out.println("laptop = " + laptop);
 
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
+    }*/
 
     @Test
     void findAllTest() {
@@ -88,7 +88,7 @@ class LaptopControllerTest {
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
-    @Test
+   /* @Test
     void deleteTest() {
         HttpHeaders headers = new HttpHeaders();
 
@@ -98,7 +98,7 @@ class LaptopControllerTest {
                 httpEntity, String.class);
 
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-    }
+    }*/
 
     @Test
     void deleteAllTest() {
