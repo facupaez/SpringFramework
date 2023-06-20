@@ -15,4 +15,10 @@ public class HelloController {
         System.out.println(message);
         return "Hello world from exercise 1!";
     }
+
+    @GetMapping("/bootstrap")
+    public String bootstrap(){
+        System.out.println(message);
+        return "Welcome to Bootstrap User!";
+    }
 }
