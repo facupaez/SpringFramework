@@ -5,6 +5,7 @@ import com.example.demo.entity.ERole;
 import com.example.demo.entity.RoleEntity;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     // crear usuario + rol asociado
     @PostMapping("/createUser")
@@ -54,5 +58,12 @@ public class UserController {
     public String deleteUser(@RequestParam String id){
         userRepository.deleteById(Long.parseLong(id));
         return "Se ha borrado el user con id ".concat(id);
+    }
+
+    @GetMapping("/findById/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public UserEntity findById(@PathVariable Long id){
+        // IMPORTANTE: forzar que salte una excepción y ver cómo es gestionada por ExceptionController
+        return userService.findById(null);
     }
 }
